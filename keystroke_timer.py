@@ -34,7 +34,8 @@ class keystrokeListener(object):
             self.log.append((cur_time() - self.start_time, key, 1))
             return False
         if self.start_time == -1 and key == Key.space:
-            print('Beginning log - hit esc to finish')
+            if self.verbose:
+                print('Beginning log - hit esc to finish')
             self.start_time = cur_time()
             self.log.append((0, key, 1))
             return
@@ -63,7 +64,7 @@ class keystrokeListener(object):
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("-f", "--file", dest="filename",
+    parser.add_argument("-f", "--file", dest="filename", required=True,
                         help="write csv of keystrokes to this file", metavar="FILE")
     parser.add_argument("-q", "--quiet",
                         action="store_false", dest="verbose", default=False,
